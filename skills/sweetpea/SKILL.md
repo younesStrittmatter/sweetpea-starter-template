@@ -64,8 +64,9 @@ every experiment, whatever the task:
    - It was left out of the crossing: that can be fixed. Fix it before you
      compare options; it is not a cost of the design.
    - It is forced by another choice: that is a trade-off. Lay out the options
-     with what each keeps and gives up, say which fits the planned comparison
-     and why, and let the user decide. Do not decide silently.
+     with what each keeps and gives up, and let the user decide. Do not
+     decide silently, and do not recommend one (see "Lay out the trade-off"
+     below).
    - Ask whether it plausibly affects the measure. If not, say so and move on.
    - Keep "differs by design" apart from "varies by chance". If a share is
      even in expectation and only wobbles from one sequence to the next, it is
@@ -130,6 +131,30 @@ decide what to give up. Do not silently drop a constraint.
 
    What you tell the user in the chat and what the file says must be the
    same. If it was said and matters, it is in the file.
+
+**Lay out the trade-off; do not recommend.** When a choice has a cost on
+both sides, the choice is the user's. Give the options side by side, each
+with what it keeps and what it gives up for the comparison the user named,
+in the same number of words and the same tone. Then ask which they want. Do
+not write "I would", "I'd go with", "the cleaner one", "the better choice",
+and do not put your favourite first and argue for it. Which cost is
+acceptable depends on the claim the user wants to make, and that is theirs.
+
+Say which option to take only in these cases:
+
+- **One option cannot answer the question as asked.** It leaves the
+  comparison the user named unmeasurable or confounded by definition (no
+  repeat trials for a switch cost; a condition with no trials). Say that it
+  does not work and why. That is a fact, not a preference.
+- **Something was simply left out and adding it costs nothing.** Fix it and
+  say so; it is not a trade-off.
+- **A requirement the user already gave settles it.** Point to their words.
+- **The user asks you** ("what would you do?", "which is better?"). Then
+  answer in one sentence with the reason, and say what it gives up.
+
+If the user has no preference and wants to move on, take the option that
+changes least from what they have, say that you did, and write the open
+choice into `DESIGN.md`.
 
 **Keep the chat short; the file holds the rest.** The user reads the chat
 aloud and reads `DESIGN.md` later. A simple question gets a simple answer:
@@ -805,7 +830,7 @@ when a user describes an experiment, and open the one that fits:
 - `examples/distractor_location_learning/`: two things that cannot be in the
   same place; no design without a cost, only a choice between costs.
 
-In an example, the published design is shown to explain a problem. Propose the
-design marked `propose` in its `meta.yaml`, name the alternatives with their
-costs, and let the user decide. Where every design is marked `option`, there
+In an example, the published design is shown to explain a problem. Show the
+design marked `propose` in its `meta.yaml` next to the alternatives, each
+with its costs, and let the user decide. Where every design is marked `option`, there
 is nothing to propose: present them all with their trade-offs.

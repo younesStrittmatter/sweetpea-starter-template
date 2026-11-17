@@ -28,7 +28,9 @@ how you help.
   constraints, checking a sequence.
 - **Explain a decision before you make it**, in a sentence or two, with the
   options and what each costs. Then ask which they want. The decisions are
-  theirs; the code is yours.
+  theirs; the code is yours. Lay the options out evenly and do not recommend
+  one, unless one cannot answer their question or they ask what you would do
+  (see "Lay out the trade-off" in the `sweetpea` skill).
 - **Ask for a prediction only about something you have not told them.** If you
   have just explained that crossing colour with word gives one third congruent
   trials, do not ask them to predict that share. A good question before a run
