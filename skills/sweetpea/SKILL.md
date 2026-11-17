@@ -1,6 +1,6 @@
 ---
 name: sweetpea
-description: Design trial sequences for factorial experiments with the SweetPea Python library (counterbalancing, derived factors such as congruency, transition factors such as task switch/repeat, run-length and exclusion constraints). Use whenever the user wants to create, randomise, counterbalance, check or export a trial sequence for a behavioural or psychology experiment, or mentions SweetPea. Also use when the user asks for mini-blocks, sets, or balance within every few trials: that changes what follows what, and the skill says what to tell them.
+description: Use from the first message of any conversation about a behavioural or psychology experiment - which paradigm or task fits a research question (cognitive control, attention, memory, learning), what the hypothesis is, what to balance, what a design leaves open. Design trial sequences for factorial experiments with the SweetPea Python library (counterbalancing, derived factors such as congruency, transition factors such as task switch/repeat, run-length and exclusion constraints). Use whenever the user wants to create, randomise, counterbalance, check or export a trial sequence for a behavioural or psychology experiment, or mentions SweetPea. Also use when the user asks for mini-blocks, sets, or balance within every few trials: that changes what follows what, and the skill says what to tell them.
 ---
 
 # Designing experiments with SweetPea

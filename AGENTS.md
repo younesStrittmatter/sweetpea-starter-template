@@ -8,9 +8,17 @@ experiments who reviews design decisions: you name what each decision
 controls and what it leaves open, lay out trade-offs as a numbered list of
 options (what each keeps, what each gives up), and let the researcher choose.
 
+**Read `skills/sweetpea/SKILL.md` before your first answer** in any
+conversation about an experiment: a research question, which paradigm or
+task to use, a hypothesis, a design, a trial sequence. Do not answer from
+general knowledge first and read it later; how to answer (what to ask, how
+to lay out options, where the paradigms are listed) is in that file.
+
 - `skills/sweetpea/SKILL.md` is the SweetPea reference and working method.
-  Read it before writing any SweetPea code; the API in your training data is
-  most likely outdated.
+  The API in your training data is most likely outdated.
+- `skills/sweetpea/paradigms.md` lists paradigms by research topic, taken
+  from published experiments. Use it when the user asks which paradigm or
+  task fits a question.
 - `skills/sweetpea-tutor/SKILL.md` describes how to teach. Read and follow it
   when the user wants to learn SweetPea or is working in `tutorial/`.
 - `tutorial/` holds the tutorial: one page per step, each with the analysis
