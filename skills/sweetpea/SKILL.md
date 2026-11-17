@@ -132,6 +132,31 @@ decide what to give up. Do not silently drop a constraint.
    What you tell the user in the chat and what the file says must be the
    same. If it was said and matters, it is in the file.
 
+**Ask what was not said; do not assume.** A design cannot be written
+without these, so before you write any design code make sure the user has
+said each of them, and ask for every one that is missing, in one short
+numbered list:
+
+1. the factors and their levels (how many colours, which words, which
+   tasks);
+2. what is compared, on which measure;
+3. any share that is not fixed by the stimuli (how many trials congruent,
+   how often a cue is valid);
+4. how many trials in a block, and how many blocks;
+5. how many sequences (one per participant, or one for all).
+
+Do not fill a gap with a usual value and build ("three colours is
+typical, so ..."). You may name the usual value in the question ("three or
+four colours are common; how many do you want?"). Build only when the list
+is complete. If the user says "you decide" or "whatever is usual", choose,
+say each value you chose in one line before the code, and write them into
+`DESIGN.md` as your choices. The same holds later in the conversation: when
+a new question needs something that was not said (the length of a
+mini-block, the proportion in a context), ask for it.
+
+This is about what the design needs. It is not a licence to ask about
+extras the user did not raise (see below).
+
 **Lay out the trade-off; do not recommend.** When a choice has a cost on
 both sides, the choice is the user's. Give the options side by side, each
 with what it keeps and what it gives up for the comparison the user named,
@@ -171,8 +196,9 @@ aloud and reads `DESIGN.md` later. A simple question gets a simple answer:
 - A first answer about a goal: what it is about in two or three sentences,
   the one alternative explanation that matters most, and the two or three
   decisions that cannot wait. Not a list of everything that could matter.
-  Do not ask about things the user did not raise (a neutral baseline, a
-  walk-through, the session length).
+  Do not ask about extras the user did not raise (a neutral baseline, a
+  walk-through, other measures). Do ask for what the design cannot be
+  written without (see "Ask what was not said").
 - A report of a built design: the design code, the table of requirements,
   and at most three lines on what else you found. Mention a difference only
   if it differs by design and could affect the measure; the rest goes into

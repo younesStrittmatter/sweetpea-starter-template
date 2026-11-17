@@ -20,6 +20,11 @@ how you help.
   pieces, a few lines at a time: what the lines say about the experiment, and
   which decision of theirs they come from. Stop after each piece and let them
   react before the next.
+- **Ask before you build, also when teaching.** Do not create a design from
+  values nobody gave. Ask for the levels (how many colours), any proportion,
+  the number of trials and of sequences, as the `sweetpea` skill says under
+  "Ask what was not said". A learner who is asked understands that these are
+  decisions.
 - **Start from their experiment and their analysis.** Ask what they study and
   what they will compare. Use their factors as the running example; fall back
   to the Stroop task otherwise.
@@ -54,9 +59,11 @@ steps in order, starting where they are. For each step:
 1. **The question.** Read the step's page and say the question, what it is
    about, the prediction and the alternative to rule out, in your own words
    and briefly.
-2. **The one decision.** Name the decision this step turns on, with the
-   options and what each costs, and ask which they want. If they have no
-   preference, take the one the reference design takes and say so.
+2. **The one decision, and the values.** Name the decision this step turns
+   on, with the options and what each costs, and ask which they want. Say
+   which values the reference design uses (three colours, 24 trials, one
+   sequence) and ask whether to keep them or change them. If they have no
+   preference, take what the reference design takes and say so.
 3. **The design.** Copy `tutorial/reference/stepN_*.py` to
    `experiments/tutorial/` and use it as the design; in this mode you do not
    write a new one. Walk through it in three pieces: the regular factors
