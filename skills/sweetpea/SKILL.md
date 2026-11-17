@@ -452,9 +452,51 @@ open: which word goes with an incongruent ink is not in the crossing, so the
 incongruent pairs come out uneven (in one run 1, 3 and 4 times). Say that in
 one line and offer the version below.
 
-**Only when the user asks for every pair equally often:** keep colour and
-word in the crossing and add a second copy of the combinations you want more
-of. This needs two helper factors; say that they are helpers and why. Do not
+**Second choice, when the word should be balanced too: a second crossing.**
+Cross the word with congruency as well. Still only the experiment's own
+factors:
+
+```python
+from sweetpea import (Factor, DerivedLevel, WithinTrial, MinimumTrials,
+                      MultiCrossBlock, RepeatMode, synthesize_trials, CMSGen)
+
+colour = Factor("colour", ["red", "green", "blue"])
+word = Factor("word", ["red", "green", "blue"])
+
+
+def same(colour, word):
+    return colour == word
+
+
+def different(colour, word):
+    return colour != word
+
+
+congruency = Factor("congruency", [
+    DerivedLevel("congruent", WithinTrial(same, [colour, word])),
+    DerivedLevel("incongruent", WithinTrial(different, [colour, word])),
+])
+block = MultiCrossBlock(design=[colour, word, congruency],
+                        crossings=[[colour, congruency],      # every ink equally often in both conditions
+                                   [word, congruency]],       # every word equally often in both conditions
+                        constraints=[MinimumTrials(24)],
+                        mode=RepeatMode.WEIGHT)
+trials = synthesize_trials(block, 1, CMSGen)[0]
+assert trials["congruency"].count("congruent") == 12
+pairs = list(zip(trials["colour"], trials["word"]))
+assert all(pairs.count((c, c)) == 4 for c in ("red", "green", "blue"))
+```
+
+Every ink and every word is then congruent on half of its trials. The
+incongruent pairs are tied to each other but not fixed: with 24 trials each
+occurs 2 times, or they split 1 and 3 (in 8 sequences: 7 times all 2, once
+1 and 3). Say that, count it, and for a guarantee go to the helper below.
+`mode` is needed as soon as `MinimumTrials` asks for more than one round.
+
+**Only when the user asks for a guarantee that every pair is equally
+often:** keep colour and word in the crossing and add a second copy of the
+combinations you want more of. This needs two helper factors; say that they
+are helpers and why, and offer the two-crossing version above first. Do not
 invent a factor that renames the combinations ("relation", "pair",
 "offset").
 
