@@ -452,9 +452,10 @@ open: which word goes with an incongruent ink is not in the crossing, so the
 incongruent pairs come out uneven (in one run 1, 3 and 4 times). Say that in
 one line and offer the version below.
 
-**Second choice, when the word should be balanced too: a second crossing.**
-Cross the word with congruency as well. Still only the experiment's own
-factors:
+**When the word should be balanced too: declare it with a second crossing.**
+"The word is balanced within congruent and within incongruent trials" is
+word crossed with congruency, next to colour crossed with congruency. Each
+crossing is one sentence of the design; nothing is calculated:
 
 ```python
 from sweetpea import (Factor, DerivedLevel, WithinTrial, MinimumTrials,
@@ -487,16 +488,26 @@ pairs = list(zip(trials["colour"], trials["word"]))
 assert all(pairs.count((c, c)) == 4 for c in ("red", "green", "blue"))
 ```
 
-Every ink and every word is then congruent on half of its trials. The
-incongruent pairs are tied to each other but not fixed: with 24 trials each
-occurs 2 times, or they split 1 and 3 (in 8 sequences: 7 times all 2, once
-1 and 3). Say that, count it, and for a guarantee use the version below.
+Every ink and every word is then congruent on half of its trials, exactly,
+in every sequence. What this does not fix is which ink goes with which word
+on incongruent trials: with 24 trials the six incongruent pairs came out 2
+each in about half of the sequences, split 1 and 3 in the others, and once
+0 and 4. Say that and count it.
 `mode` is needed as soon as `MinimumTrials` asks for more than one round.
 
-**When every pair must be equally often: cross colour, word and congruency.**
-The combinations that cannot occur (red ink, the word red, incongruent) drop
-out, and the weight on a level of congruency says how often each of its
-pairs occurs. Only the experiment's own factors, and exact:
+**Every incongruent pair equally often, at a share you choose, cannot be
+declared directly.** SweetPea crosses factors over all trials; it has no
+crossing "within the trials where a condition holds". Adding colour x word
+as a crossing makes all nine pairs equal, which is one third congruent and
+contradicts half (no sequence is found). Tell the user this plainly, and
+that the two crossings above are what can be declared.
+
+If the user still wants exactly even pairs, there is a version that works by
+calculation, not by declaration: cross colour, word and congruency and put
+a weight on congruency. The weight counts pairs, so it has to be worked out
+from the number of pairs of each kind and worked out again when the number
+of colours or the share changes. Offer it as that, show the arithmetic, and
+do not use it unasked:
 
 ```python
 from sweetpea import (Factor, DerivedLevel, WithinTrial, MinimumTrials,
@@ -533,7 +544,8 @@ assert all(pairs.count((c, w)) == (4 if c == w else 2)                      # ev
 - The weights count pairs, not trials: 3 congruent pairs twice and 6
   incongruent pairs once is 6 and 6, so half congruent. Weights 6 and 1 give
   three quarters congruent (18 and 6), weights 2 and 3 one quarter (6 and
-  18). Work the share out from the number of pairs of each kind and say it.
+  18). With four colours there are 4 and 12 pairs and every weight changes.
+  Show this arithmetic to the user; it is the cost of this version.
 - `require_complete_crossing=False` is needed because some combinations of
   the crossing cannot occur. SweetPea prints a warning that the crossing is
   incomplete; that is the intended case here. Tell the user in one line.
