@@ -168,6 +168,35 @@ researcher, often a student, reading your answer on a screen in a room.
 - In code shown in the chat, a short comment on each line that carries a
   decision, in the words of the experiment.
 
+**Show the pair table whenever two stimulus features can match.** When the
+design has two features with the same levels (ink and word, target and
+flanker, cue and target), every report of a built sequence shows how often
+each pair occurs, as one table, once:
+
+- Rows are the feature that is responded to (the ink), columns the other
+  (the word), with a total for every row and column.
+- The matching pairs (the diagonal: congruent) are marked so that they stand
+  out in any display: put them in square brackets and in bold, `**[8]**`.
+  The other cells are plain numbers. Do not rely on bold alone; it is often
+  not shown.
+- One line above the table says what it is and how to read it: "Trials in
+  the sequence of 48. Rows are the ink, columns the word. In brackets: the
+  word matches the ink (congruent)."
+- Under the table, in two or three plain sentences: how many trials are
+  congruent, how uneven the other pairs are, and what a word tells about the
+  ink ("given the word RED, the ink is red on 8 of 15 trials"). Say whether
+  the unevenness is by design or only this sequence.
+
+| Ink | Word red | Word green | Word blue | Total |
+|---|---|---|---|---|
+| Red | **[8]** | 3 | 5 | 16 |
+| Green | 4 | **[8]** | 4 | 16 |
+| Blue | 3 | 5 | **[8]** | 16 |
+| Total | 15 | 16 | 17 | 48 |
+
+Show this table once per report, not twice, and build it from the counted
+sequence, never from what the design should give.
+
 **When the user says "quick" or "live", answer fast.** In a live session the
 wait is the cost. Then, until the user says otherwise:
 
