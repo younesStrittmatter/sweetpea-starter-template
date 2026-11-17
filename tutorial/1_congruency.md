@@ -1,6 +1,6 @@
 # Step 1. Congruency
 
-Without an assistant: [notebook](notebooks/1_congruency.ipynb) · [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/younesStrittmatter/sweetpea-starter/blob/main/tutorial/notebooks/1_congruency.ipynb)
+Without an assistant: [notebook](notebooks/1_congruency.ipynb) · [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/younesStrittmatter/sweetpea-starter-template/blob/main/tutorial/notebooks/1_congruency.ipynb)
 
 ## The question
 
