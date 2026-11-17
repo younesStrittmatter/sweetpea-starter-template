@@ -28,6 +28,11 @@ exist.
 
 ## How to work
 
+The two scripts this file mentions, `limit.py` and `check_design.py`, are in
+the `scripts/` folder next to this file. In this repository that is
+`skills/sweetpea/scripts/`; if the skill was copied somewhere else, use the
+`scripts/` folder beside the copy.
+
 A design is right or wrong only for an analysis. The method is the same for
 every experiment, whatever the task:
 
@@ -51,7 +56,7 @@ every experiment, whatever the task:
    several short blocks, each generated on its own (or, when something differs
    between mini-blocks, nested in one design with `Nest`,
    see below), and always run generation
-   with a time limit: `python scripts/limit.py 60 your_design.py` stops it
+   with a time limit: `python skills/sweetpea/scripts/limit.py 60 your_design.py` stops it
    after 60 seconds. Never wait on a generation without a limit. When it is
    stopped, the design is too large as written: make it smaller and tell the
    user what you changed and what that costs. If a design is only
@@ -61,7 +66,7 @@ every experiment, whatever the task:
 3. **Count everything else.** Run
 
    ```
-   python scripts/check_design.py sequence_*.csv --compare <the compared columns>
+   python skills/sweetpea/scripts/check_design.py sequence_*.csv --compare <the compared columns>
    ```
 
    It lists every property that differs between the compared conditions: the
@@ -972,8 +977,8 @@ Then look for what nobody asked about (the script needs only the Python
 standard library):
 
 ```
-python scripts/check_design.py sequence_0.csv --compare congruency
-python scripts/check_design.py sequence_0.csv --balance colour congruency --runs congruency
+python skills/sweetpea/scripts/check_design.py sequence_0.csv --compare congruency
+python skills/sweetpea/scripts/check_design.py sequence_0.csv --balance colour congruency --runs congruency
 ```
 
 `--compare` lists every property that differs between the compared
