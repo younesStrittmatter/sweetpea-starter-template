@@ -1,0 +1,47 @@
+id: distractor_location_learning
+kind: trade_off                 # unequal_property | balanced_as_is | unequal_by_intent | trade_off
+source:
+  citation: Gong & Theeuwes (2021), Attention, Perception, & Psychophysics, Experiment 3
+  doi: 10.3758/s13414-020-02142-8
+construct: learned suppression of a distractor location
+paradigm: additional singleton search
+takeaway: >
+  Often there is no design without a cost, only a choice between costs, and
+  which cost is acceptable depends on the analysis. Ask which comparisons are
+  planned before proposing a design. Lay out the options with what each keeps
+  and gives up, say which fits the planned comparisons and why, and write the
+  chosen design down so that design and analysis agree.
+analysis:
+  factor: distractor_position
+  compares: [absent, usual place]
+  measure: response time
+  kind: within-participant difference of condition means
+to_balance:
+  - property: target_place
+    type: regular
+    levels: [usual place, elsewhere]
+    balanceable_by_order: false
+intended_imbalance: [distractor_location]
+designs:               # no design has the role "propose": present all options with their trade-offs
+  as often:
+    role: option
+    published: true
+    trials: 85
+    counts: {none/elsewhere: 7, none/usual place: 1, usual place/elsewhere: 28, usual place/usual place: 0,
+             another place/elsewhere: 42, another place/usual place: 7}
+  never:
+    role: option
+    trials: 77
+    counts: {none/elsewhere: 7, none/usual place: 0, usual place/elsewhere: 28, usual place/usual place: 0,
+             another place/elsewhere: 42, another place/usual place: 0}
+  more often:
+    role: option
+    trials: 92
+    counts: {none/elsewhere: 7, none/usual place: 1, usual place/elsewhere: 28, usual place/usual place: 0,
+             another place/elsewhere: 42, another place/usual place: 14}
+depends_on_analysis:      # see best_for() in design.py
+  distractor_cost only: never
+  with place_suppression: as often
+  with place_suppression, and rare targets at the place are a worry: more often
+analysis_options: [target_place_as_factor]
+concepts: [level weights, derived factor, exclusion constraint, incomplete crossing]

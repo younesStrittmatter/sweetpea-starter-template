@@ -1,0 +1,60 @@
+id: masked_number_priming
+kind: unequal_property          # unequal_property | balanced_as_is | unequal_by_intent
+source:
+  citation: Zerweck et al. (2021), Attention, Perception, & Psychophysics, Experiment 3
+  doi: 10.3758/s13414-021-02312-2
+construct: unconscious semantic processing
+paradigm: masked priming
+takeaway: >
+  A complete crossing of two stimuli from the same set contains the pairs with
+  the same item twice, and those can only be congruent. When you remove them,
+  check what the first stimulus then says about the second: the second must be
+  equally expected in every compared condition.
+analysis:
+  factor: congruency
+  compares: [congruent, incongruent]
+  measure: response time
+  kind: within-participant difference of condition means
+to_balance:
+  - property: number_identity
+    type: derived
+    levels: [identical, different]
+    balanceable_by_order: false
+stays_unequal: [numerical_distance]
+designs:
+  proposed:
+    role: propose
+    trials: 64
+    counts: {congruent/different: 32, incongruent/different: 32}
+    trials_per_pair: {congruent: [8], incongruent: [8]}
+    targets_after_a_prime: 2
+  as_published:
+    role: do_not_propose
+    assignment: counterbalanced   # complete crossing of prime and target; random order
+    leaves_unequal: [number_identity]
+    trials: 64
+    counts: {congruent/different: 16, congruent/identical: 16, incongruent/different: 32}
+    trials_per_pair: {congruent: [4], incongruent: [4]}
+    targets_after_a_prime: 4
+  drop_identical_double_congruent:
+    role: alternative
+    leaves_unequal: [pair_frequency, target_expectancy]   # trial type and response stay at one half
+    trials: 64
+    counts: {congruent/different: 32, incongruent/different: 32}
+    trials_per_pair: {congruent: [8], incongruent: [4]}
+    targets_after_a_prime: 3
+  drop_identical_only:
+    role: alternative
+    leaves_unequal: [condition_frequency]
+    trials: 48
+    counts: {congruent/different: 16, incongruent/different: 32}
+    trials_per_pair: {congruent: [4], incongruent: [4]}
+    targets_after_a_prime: 3
+  separate_number_sets:
+    role: alternative
+    trials: 64
+    counts: {congruent/different: 32, incongruent/different: 32}
+    trials_per_pair: {congruent: [4], incongruent: [4]}
+    targets_after_a_prime: 4
+analysis_options: [exclude_identical_trials, three_trial_types]
+concepts: [derived factor, exclusion constraints, minimum trials]

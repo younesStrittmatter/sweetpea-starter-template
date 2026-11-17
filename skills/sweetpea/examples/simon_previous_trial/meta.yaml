@@ -1,0 +1,50 @@
+id: simon_previous_trial
+kind: unequal_property          # unequal_property | balanced_as_is | unequal_by_intent
+source:
+  citation: Dunaway & Weissman (2026), Psychological Research, Experiment 4
+  doi: 10.1007/s00426-025-02216-y
+construct: cognitive control over distraction
+paradigm: Simon task with a prime word
+takeaway: >
+  Making things even within a short stretch of trials (sets, mini-blocks)
+  changes what follows what: a trial then follows its own type, its side and
+  its response less often than half of the time, and this does not even out
+  over a block. When a user asks for such sets, say so, and offer to make what
+  repeats from the trial before part of the design. The sets can stay.
+analysis:
+  factors: [prime_compatibility, simon_congruency]
+  measure: response time and errors
+  kind: within-participant comparison of condition means
+to_balance:
+  - property: previous_simon_congruency
+    type: transition
+    levels: [congruent, incongruent]
+    balanceable_by_order: true
+  - property: previous_prime_compatibility
+    type: transition
+    levels: [compatible, neutral, incompatible]
+    balanceable_by_order: true
+designs:
+  proposed:
+    role: propose
+    trials: 109
+    sets_of_twelve: true
+    repeats_percent: {simon_congruency: 50, side: 50, response: 50, same_square: 25}
+  within_every_four:
+    role: alternative
+  conditions_crossed:
+    role: alternative
+    slow: true                    # about two minutes; not run by the check
+  trial_type_only:
+    role: do_not_propose
+    leaves_unequal: [side_repetition, response_repetition]
+  as_published:
+    role: do_not_propose
+    assignment: counterbalanced   # the 12 combinations once per set; sets shuffled
+    reason_given: avoid contingency learning by showing every combination equally often
+    leaves_unequal: [trial_type_repetition, side_repetition, response_repetition, square_repetition]
+    trials: 108
+    sets_of_twelve: true
+    expected_rate_congruent_after_congruent: 0.4583   # 11/24, exact under shuffling
+analysis_options: [trial_before_as_factor, reweight_to_equal_history]
+concepts: [transition factor, multiple crossings, repeated sets, exact counts]
