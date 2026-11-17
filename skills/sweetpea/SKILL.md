@@ -211,6 +211,38 @@ aloud and reads `DESIGN.md` later. A simple question gets a simple answer:
   with the experiment's own factors, and say in one sentence why it is
   there.
 
+## When the question is about the trial before: count every kind of repetition
+
+Whenever a comparison involves the trial before (a sequence effect, a
+switch cost, adaptation, priming, "after an incongruent trial"), the first
+alternative explanation is always that something simply repeated. Be extra
+careful here. Before you offer a design, count each of these, per cell of
+the comparison, and show the counts:
+
+| Kind of repetition | What to count |
+|---|---|
+| **The complete stimulus** | Every stimulus feature is the same as on the trial before (same ink and same word). |
+| **The response** | The correct response is the same as on the trial before. It follows from whichever feature is responded to (the ink in colour naming, the word in word reading), so work out which one it is in each task. |
+| **Each feature on its own** | The ink repeats; the word repeats; and likewise for every other stimulus feature (position, shape, cue). |
+| **A feature that changes its role** | What was ignored on the trial before is now responded to, or the other way round (the word of the trial before is now the ink: negative priming). |
+| **The task and its cue** | The task repeats; the cue repeats (with one cue per task these are the same thing; say so). |
+
+Put each of these into the design as a transition factor, in the design and
+not in the crossing, so that SweetPea records it and it can be counted. Then:
+
+- **Say what cannot happen in a cell by definition.** A complete stimulus
+  repetition cannot occur when congruency changes. That is a difference
+  between the cells no sequence removes; name it.
+- **Compare each count with its chance rate** (one in three for a feature
+  with three levels), so the user sees what is biased and what only varies.
+- **Check every fix against all the other kinds.** A fix for one kind of
+  repetition usually changes another. Forbidding complete repetitions makes
+  a congruent trial after a congruent trial never repeat the ink, so the
+  response repetition now differs between the cells. Count again after the
+  fix and show the user what moved, before they choose.
+- **Lay the options out with these counts** (leave it, forbid it, cross it,
+  more levels) and let the user decide, as everywhere else.
+
 ## Where differences come from
 
 Three mechanisms produce most differences that nobody chose. They are not tied
