@@ -502,19 +502,18 @@ as a crossing makes all nine pairs equal, which is one third congruent and
 contradicts half (no sequence is found). Tell the user this plainly, and
 that the two crossings above are what can be declared.
 
-If the user still wants exactly even pairs, there is a version that works by
-calculation, not by declaration: cross colour, word and congruency and put
-a weight on congruency. The weight counts pairs, so it has to be worked out
-from the number of pairs of each kind and worked out again when the number
-of colours or the share changes. Offer it as that, show the arithmetic, and
-do not use it unasked:
+If the user wants exactly even pairs, say it with a constraint: name the
+incongruent pairs in a derived factor that is in the design and not in the
+crossing, and ask for each of them with `ExactlyK`. The crossing stays the
+plain one, and the constraint reads as the requirement:
 
 ```python
-from sweetpea import (Factor, DerivedLevel, WithinTrial, MinimumTrials,
+from sweetpea import (Factor, DerivedLevel, WithinTrial, MinimumTrials, ExactlyK,
                       CrossBlock, synthesize_trials, CMSGen)
 
-colour = Factor("colour", ["red", "green", "blue"])
-word = Factor("word", ["red", "green", "blue"])
+colours = ["red", "green", "blue"]
+colour = Factor("colour", colours)
+word = Factor("word", colours)
 
 
 def same(colour, word):
@@ -526,32 +525,42 @@ def different(colour, word):
 
 
 congruency = Factor("congruency", [
-    DerivedLevel("congruent", WithinTrial(same, [colour, word]), 2),        # each congruent pair twice
-    DerivedLevel("incongruent", WithinTrial(different, [colour, word]), 1),   # each incongruent pair once
+    DerivedLevel("congruent", WithinTrial(same, [colour, word])),
+    DerivedLevel("incongruent", WithinTrial(different, [colour, word])),
 ])
-block = CrossBlock(design=[colour, word, congruency],
-                   crossing=[colour, word, congruency],
-                   constraints=[MinimumTrials(24)],
-                   require_complete_crossing=False)      # some combinations cannot occur
+
+# Every incongruent pair by name, so that a constraint can count it.
+incongruent_pairs = [(ink, text) for ink in colours for text in colours if ink != text]
+
+
+def shows(ink, text):
+    def this_pair(colour, word):
+        return colour == ink and word == text
+    return this_pair
+
+
+pair = Factor("pair", [DerivedLevel(f"{text} in {ink}", WithinTrial(shows(ink, text), [colour, word]))
+                       for ink, text in incongruent_pairs]
+              + [DerivedLevel("congruent", WithinTrial(same, [colour, word]))])
+
+block = CrossBlock(design=[colour, word, congruency, pair],
+                   crossing=[colour, congruency],                       # half congruent, every ink even
+                   constraints=[MinimumTrials(24)]
+                   + [ExactlyK(2, (pair, f"{text} in {ink}"))            # every incongruent pair twice
+                      for ink, text in incongruent_pairs])
 trials = synthesize_trials(block, 1, CMSGen)[0]
 
 pairs = list(zip(trials["colour"], trials["word"]))
-assert trials["congruency"].count("congruent") == 12                        # half congruent
-assert all(pairs.count((c, w)) == (4 if c == w else 2)                      # every pair of a kind equally often
-           for c in ("red", "green", "blue") for w in ("red", "green", "blue"))
+assert trials["congruency"].count("congruent") == 12
+assert all(pairs.count((c, w)) == (4 if c == w else 2) for c in colours for w in colours)
 ```
 
-- The weights count pairs, not trials: 3 congruent pairs twice and 6
-  incongruent pairs once is 6 and 6, so half congruent. Weights 6 and 1 give
-  three quarters congruent (18 and 6), weights 2 and 3 one quarter (6 and
-  18). With four colours there are 4 and 12 pairs and every weight changes.
-  Show this arithmetic to the user; it is the cost of this version.
-- `require_complete_crossing=False` is needed because some combinations of
-  the crossing cannot occur. SweetPea prints a warning that the crossing is
-  incomplete; that is the intended case here. Tell the user in one line.
-- Do not build this with extra "copy" factors and an `Exclude`, and do not
-  invent a factor that renames the combinations ("relation", "pair",
-  "offset"). The crossing with a weight says it directly.
+- The number in `ExactlyK` is the incongruent trials divided by the number
+  of incongruent pairs (12 / 6). Say it in the comment, as above.
+- **When something cannot be said with a crossing, use a constraint, not a
+  helper.** Do not add "copy" factors with an `Exclude`, and do not move
+  the share into weights that count pairs. A constraint names the
+  requirement and can be read aloud; a helper has to be explained.
 
 ### Putting blocks together
 
