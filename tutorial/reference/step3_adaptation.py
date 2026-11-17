@@ -53,3 +53,13 @@ display(pd.crosstab([session["block"], session["context"]], session["congruency"
 
 
 display(pd.crosstab([session["context"], session["word"]], session["congruency"]))
+
+
+even_pairs = Factor("congruency", [
+    DerivedLevel("congruent", WithinTrial(same, [colour, word]), 6),
+    DerivedLevel("incongruent", WithinTrial(different, [colour, word]), 1),
+])
+block_even = CrossBlock(design=[colour, word, even_pairs], crossing=[colour, word, even_pairs],
+                        constraints=[], require_complete_crossing=False)    # some combinations cannot occur
+trials_even = pd.DataFrame(synthesize_trials(block_even, 1, CMSGen)[0])
+display(pd.crosstab(trials_even["colour"], trials_even["word"]))

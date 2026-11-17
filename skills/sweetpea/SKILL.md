@@ -490,46 +490,56 @@ assert all(pairs.count((c, c)) == 4 for c in ("red", "green", "blue"))
 Every ink and every word is then congruent on half of its trials. The
 incongruent pairs are tied to each other but not fixed: with 24 trials each
 occurs 2 times, or they split 1 and 3 (in 8 sequences: 7 times all 2, once
-1 and 3). Say that, count it, and for a guarantee go to the helper below.
+1 and 3). Say that, count it, and for a guarantee use the version below.
 `mode` is needed as soon as `MinimumTrials` asks for more than one round.
 
-**Only when the user asks for a guarantee that every pair is equally
-often:** keep colour and word in the crossing and add a second copy of the
-combinations you want more of. This needs two helper factors; say that they
-are helpers and why, and offer the two-crossing version above first. Do not
-invent a factor that renames the combinations ("relation", "pair",
-"offset").
+**When every pair must be equally often: cross colour, word and congruency.**
+The combinations that cannot occur (red ink, the word red, incongruent) drop
+out, and the weight on a level of congruency says how often each of its
+pairs occurs. Only the experiment's own factors, and exact:
 
 ```python
-from sweetpea import (Factor, DerivedLevel, WithinTrial, Exclude, MinimumTrials,
+from sweetpea import (Factor, DerivedLevel, WithinTrial, MinimumTrials,
                       CrossBlock, synthesize_trials, CMSGen)
 
 colour = Factor("colour", ["red", "green", "blue"])
 word = Factor("word", ["red", "green", "blue"])
-copy = Factor("copy", ["first", "second"])
 
 
-def unwanted(copy, colour, word):       # a second copy only of the congruent trials
-    return copy == "second" and colour != word
+def same(colour, word):
+    return colour == word
 
 
-def wanted(copy, colour, word):
-    return not unwanted(copy, colour, word)
+def different(colour, word):
+    return colour != word
 
 
-second_copy = Factor("second_copy", [
-    DerivedLevel("unwanted", WithinTrial(unwanted, [copy, colour, word])),
-    DerivedLevel("wanted", WithinTrial(wanted, [copy, colour, word])),
+congruency = Factor("congruency", [
+    DerivedLevel("congruent", WithinTrial(same, [colour, word]), 2),        # each congruent pair twice
+    DerivedLevel("incongruent", WithinTrial(different, [colour, word]), 1),   # each incongruent pair once
 ])
-block = CrossBlock(
-    design=[colour, word, copy, second_copy],
-    crossing=[colour, word, copy],
-    constraints=[Exclude((second_copy, "unwanted")), MinimumTrials(12)],
-    require_complete_crossing=False,
-)
+block = CrossBlock(design=[colour, word, congruency],
+                   crossing=[colour, word, congruency],
+                   constraints=[MinimumTrials(24)],
+                   require_complete_crossing=False)      # some combinations cannot occur
 trials = synthesize_trials(block, 1, CMSGen)[0]
-assert len(trials["colour"]) == 12      # 3 congruent pairs twice, 6 incongruent pairs once
+
+pairs = list(zip(trials["colour"], trials["word"]))
+assert trials["congruency"].count("congruent") == 12                        # half congruent
+assert all(pairs.count((c, w)) == (4 if c == w else 2)                      # every pair of a kind equally often
+           for c in ("red", "green", "blue") for w in ("red", "green", "blue"))
 ```
+
+- The weights count pairs, not trials: 3 congruent pairs twice and 6
+  incongruent pairs once is 6 and 6, so half congruent. Weights 6 and 1 give
+  three quarters congruent (18 and 6), weights 2 and 3 one quarter (6 and
+  18). Work the share out from the number of pairs of each kind and say it.
+- `require_complete_crossing=False` is needed because some combinations of
+  the crossing cannot occur. SweetPea prints a warning that the crossing is
+  incomplete; that is the intended case here. Tell the user in one line.
+- Do not build this with extra "copy" factors and an `Exclude`, and do not
+  invent a factor that renames the combinations ("relation", "pair",
+  "offset"). The crossing with a weight says it directly.
 
 ### Putting blocks together
 
@@ -748,9 +758,8 @@ Checked with 0.2.14; tell the user these when you use it:
   Above, `congruency` is fine because `frequency` follows from it. If you
   only want such a factor as a label, add it as a column afterwards.
 - **A proportion that depends on the outer factor** goes into one derived
-  factor with weights, as `frequency` above. The copies pattern with an
-  `Exclude` that depends on the outer factor does not work inside `Nest`
-  (the trial count comes out wrong and no sequence is found).
+  factor with weights, as `frequency` above: a weight cannot depend on
+  another factor, so the weight on `congruency` itself cannot do it.
 - A factor cannot be in the crossing of both blocks. A `Nest` can be the
   inner block of another `Nest`.
 - SweetPea's own examples: `example_programs/MiniBlocks.py` and
